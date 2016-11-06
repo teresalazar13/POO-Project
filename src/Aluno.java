@@ -3,7 +3,8 @@ public class Aluno extends Pessoa {
     private Curso curso;
     private String regime;
 
-    public Aluno(int numero, int anoMatricula, Curso curso, String regime) {
+    public Aluno(String nome, String email, int numero, int anoMatricula, Curso curso, String regime) {
+        super(nome, email);
         this.numero = numero;
         this.anoMatricula = anoMatricula;
         this.curso = curso;
