@@ -5,6 +5,8 @@ public class Data {
     private int hora;
     private int minuto;
 
+    public Data() {};
+
     public Data(int dia, int mes, int ano, int hora, int minuto) {
         this.dia = dia;
         this.mes = mes;

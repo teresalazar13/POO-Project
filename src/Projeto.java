@@ -5,14 +5,13 @@ import java.util.Scanner;
 public class Projeto {
 
     private static ArrayList<Exame> exames = new ArrayList<Exame>();
-    private static int TAMANHO_EXAMES = 10;
 
-    public static void adicionarExame(ArrayList<Exame>) {
+    public static void adicionarExame() {
         Exame exame = new Exame();
         exames.add(exame);
     }
 
-    public static void listarExames(ArrayList<Exame>) {
+    public static void listarExames() {
         System.out.println("----LISTA DE EXAMES----");
         Iterator<Exame> it = exames.iterator();
         while(it.hasNext()) {
@@ -40,6 +39,9 @@ public class Projeto {
             switch (opcao) {
                 case 1:
                     adicionarExame();
+                    break;
+                case 6:
+                    listarExames();
                     break;
                 default:
                     return;

@@ -2,6 +2,8 @@ public class Funcionario extends Pessoa {
     protected int numeroMecanografico;
     protected String categoria;
 
+    public Funcionario() {};
+
     public Funcionario(String nome, String email, int numeroMecanografico, String categoria) {
         super(nome, email);
         this.numeroMecanografico = numeroMecanografico;

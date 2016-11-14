@@ -4,6 +4,8 @@ public class Curso {
     private String nome;
     private String grau;
 
+    public Curso() {};
+
     public Curso(String nome, String grau) {
         this.nome = nome;
         this.grau = grau;

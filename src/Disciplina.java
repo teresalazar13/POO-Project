@@ -6,6 +6,8 @@ public class Disciplina {
     private ArrayList<Docente> outrosDocentes;
     private ArrayList<Aluno> alunos;
 
+    public Disciplina() {};
+
     public Disciplina(String nome, Docente docente, ArrayList<Docente> outrosDocentes, ArrayList<Aluno> alunos) {
         this.nome = nome;
         this.docente = docente;

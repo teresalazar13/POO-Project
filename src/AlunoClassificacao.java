@@ -2,6 +2,8 @@ public class AlunoClassificacao {
     private Aluno aluno;
     private int classificacao;
 
+    public AlunoClassificacao() {};
+
     public AlunoClassificacao(Aluno aluno, int classificacao) {
         this.aluno = aluno;
         this.classificacao = classificacao;
