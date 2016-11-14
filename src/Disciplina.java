@@ -6,7 +6,7 @@ public class Disciplina {
     private ArrayList<Docente> outrosDocentes;
     private ArrayList<Aluno> alunos;
 
-    public Disciplina() {};
+    public Disciplina() {}
 
     public Disciplina(String nome, Docente docente, ArrayList<Docente> outrosDocentes, ArrayList<Aluno> alunos) {
         this.nome = nome;
@@ -45,5 +45,14 @@ public class Disciplina {
 
     public void setAlunos(ArrayList<Aluno> alunos) {
         this.alunos = alunos;
+    }
+
+    @Override
+    public String toString() {
+        return "Disciplina: " + nome + '\n' +
+                "Docente: " + docente + '\n' +
+                "Outros docentes: " + outrosDocentes + '\n' +
+                "Alunos: " + alunos + '\n' +
+                "----";
     }
 }

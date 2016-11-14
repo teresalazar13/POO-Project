@@ -2,7 +2,7 @@ public class Pessoa {
     protected String nome;
     protected String email;
 
-    public Pessoa() {};
+    public Pessoa() {}
 
     public Pessoa(String nome, String email) {
         this.nome = nome;
@@ -23,5 +23,13 @@ public class Pessoa {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Pessoa: " +
+                "Nome: " + nome + '\n' +
+                "Email: " + email + '\n' +
+                "----";
     }
 }

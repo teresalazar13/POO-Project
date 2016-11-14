@@ -2,7 +2,7 @@ public class AlunoClassificacao {
     private Aluno aluno;
     private int classificacao;
 
-    public AlunoClassificacao() {};
+    public AlunoClassificacao() {}
 
     public AlunoClassificacao(Aluno aluno, int classificacao) {
         this.aluno = aluno;
@@ -23,5 +23,13 @@ public class AlunoClassificacao {
 
     public void setClassificacao(int classificacao) {
         this.classificacao = classificacao;
+    }
+
+    @Override
+    public String toString() {
+        return "AlunoClassificacao: " +
+                "Aluno: " + aluno + '\n' +
+                "Classificacao: " + classificacao + '\n' +
+                "----";
     }
 }

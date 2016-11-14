@@ -5,7 +5,7 @@ public class Data {
     private int hora;
     private int minuto;
 
-    public Data() {};
+    public Data() {}
 
     public Data(int dia, int mes, int ano, int hora, int minuto) {
         this.dia = dia;
@@ -53,5 +53,10 @@ public class Data {
 
     public void setMinuto(int minuto) {
         this.minuto = minuto;
+    }
+
+    @Override
+    public String toString() {
+        return dia + '/' + mes + '/' + ano + " " + hora + ":" + minuto;
     }
 }

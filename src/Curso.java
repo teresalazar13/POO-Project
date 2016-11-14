@@ -7,7 +7,7 @@ public class Curso {
     private String grau;
     private ArrayList<Disciplina> disciplinas;
 
-    public Curso() {};
+    public Curso() {}
 
     public Curso(String nome, int duracao, String grau, ArrayList<Disciplina> disciplinas) {
         this.nome = nome;
@@ -46,5 +46,14 @@ public class Curso {
 
     public void setDisciplinas(ArrayList<Disciplina> disciplinas) {
         this.disciplinas = disciplinas;
+    }
+
+    @Override
+    public String toString() {
+        return "Curso: " + nome + '\n' +
+                "Duracao: " + duracao + '\n' +
+                "Grau: " + grau + '\n' +
+                "Disciplinas: " + disciplinas + '\n' +
+                "----";
     }
 }

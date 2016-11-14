@@ -1,7 +1,7 @@
 public class NaoDocente extends Funcionario {
     private String cargo;
 
-    public  NaoDocente() {};
+    public  NaoDocente() {}
 
     public NaoDocente(String nome, String email, int numeroMecanografico, String categoria, String cargo) {
         super(nome, email, numeroMecanografico, categoria);
@@ -14,5 +14,12 @@ public class NaoDocente extends Funcionario {
 
     public void setCargo(String cargo) {
         this.cargo = cargo;
+    }
+
+    @Override
+    public String toString() {
+        return "Nao Docente: " + '\n' +
+                "Cargo: " + cargo + '\n' +
+                "----";
     }
 }

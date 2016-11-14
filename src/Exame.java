@@ -9,7 +9,7 @@ public class Exame {
     protected ArrayList<NaoDocente> funcionariosNaoDocentes;
     protected ArrayList<AlunoClassificacao> alunoClassificao;
 
-    public Exame() {};
+    public Exame() {}
 
     public Exame(Disciplina disciplina, Data data, int duracao, Docente docenteResponsavel, ArrayList<Docente> vigilantes, ArrayList<NaoDocente> funcionariosNaoDocentes, ArrayList<AlunoClassificacao> alunoClassificao) {
         this.disciplina = disciplina;
@@ -75,5 +75,18 @@ public class Exame {
 
     public void setAlunoClassificao(ArrayList<AlunoClassificacao> alunoClassificao) {
         this.alunoClassificao = alunoClassificao;
+    }
+
+    @Override
+    public String toString() {
+        return "Exame: " + '\n' +
+                "Disciplina: " + disciplina + '\n' +
+                "Data: " + data + '\n' +
+                "Duracao: " + duracao + '\n' +
+                "Docente responsavel: " + docenteResponsavel + '\n' +
+                "Vigilantes: " + vigilantes + '\n' +
+                "Duncionarios nao docentes: " + funcionariosNaoDocentes + '\n' +
+                "Aluno + Classificao: " + alunoClassificao + '\n' +
+                "----";
     }
 }
