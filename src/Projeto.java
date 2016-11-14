@@ -1,6 +1,24 @@
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Projeto {
+
+    private static ArrayList<Exame> exames = new ArrayList<Exame>();
+    private static int TAMANHO_EXAMES = 10;
+
+    public static void adicionarExame(ArrayList<Exame>) {
+        Exame exame = new Exame();
+        exames.add(exame);
+    }
+
+    public static void listarExames(ArrayList<Exame>) {
+        System.out.println("----LISTA DE EXAMES----");
+        Iterator<Exame> it = exames.iterator();
+        while(it.hasNext()) {
+            System.out.println(it.next());
+        }
+    }
 
     public static void menu() {
         Scanner sc = new Scanner(System.in);
@@ -21,7 +39,7 @@ public class Projeto {
             int opcao = sc.nextInt();
             switch (opcao) {
                 case 1:
-                    System.out.println("uo");
+                    adicionarExame();
                     break;
                 default:
                     return;

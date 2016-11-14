@@ -9,6 +9,8 @@ public class Exame {
     protected ArrayList<NaoDocente> funcionariosNaoDocentes;
     protected ArrayList<AlunoClassificacao> alunoClassificao;
 
+    public Exame() {};
+
     public Exame(Disciplina disciplina, Data data, int duracao, Docente docenteResponsavel, ArrayList<Docente> vigilantes, ArrayList<NaoDocente> funcionariosNaoDocentes, ArrayList<AlunoClassificacao> alunoClassificao) {
         this.disciplina = disciplina;
         this.data = data;
