@@ -53,7 +53,7 @@ public class Curso {
         return "Curso: " + nome + '\n' +
                 "Duracao: " + duracao + '\n' +
                 "Grau: " + grau + '\n' +
-                "Disciplinas: " + disciplinas + '\n' +
+                "Disciplinas: " + "--lista de disciplinas--" + '\n' +
                 "----";
     }
 }

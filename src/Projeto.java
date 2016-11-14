@@ -28,7 +28,6 @@ public class Projeto {
         System.out.println("----LISTA DE ALUNOS----");
         Iterator<Aluno> it = alunos.iterator();
         while(it.hasNext()) {
-            System.out.println("oi");
             System.out.println(it.next());
         }
     }
@@ -66,30 +65,21 @@ public class Projeto {
     }
 
     public static void menu() {
-        Curso curso = new Curso("Engenharia Informatica", 3, "Licenciatura", disciplinas);
-        System.out.println(curso);
-        cursos.add(curso);
-        Aluno aluno = new Aluno("Teresa", "teresa.sal13@gmail.com", 20, 1, curso, "normal");
-        alunos.add(aluno);
         Docente docente = new Docente("Marilia Curado", "mariliacurado@dei.uc.pt", 1, "Catedratico", "Engenharia de Software");
-        docentes.add(docente);
-        NaoDocente naoDocente = new NaoDocente("Jorge", "jorge@gmail.com", 10, "Tecnico", "Secretaria");
-        naoDocentes.add(naoDocente);
         Disciplina disciplina = new Disciplina("POO", docente, docentes, alunos);
-        disciplinas.add(disciplina);
+        Curso curso = new Curso("Engenharia Informatica", 3, "Licenciatura", disciplinas);
+        Aluno aluno = new Aluno("Teresa", "teresa.sal13@gmail.com", 20, 1, curso, "normal");
+        NaoDocente naoDocente = new NaoDocente("Jorge", "jorge@gmail.com", 10, "Tecnico", "Secretaria");
         Data data = new Data(1,2,3,4,5);
 
-        listarExames();
-        /*
-        ArrayList<Aluno> alunos = new ArrayList<Aluno>();
+        docentes.add(docente);
+        disciplinas.add(disciplina);
+        cursos.add(curso);
+        alunos.add(aluno);
+        naoDocentes.add(naoDocente);
 
-        System.out.println("----LISTA DE ALUNOS----");
-        Iterator<Aluno> it = alunos.iterator();
-        while(it.hasNext()) {
-            System.out.println("oi");
-            System.out.println(it.next());
-        }*/
-        //listarAlunos();
+        listarExames();
+        listarAlunos();
         //listarDocentes();
         //listarNaoDocentes();
         //listarCursos();

@@ -48,9 +48,11 @@ public class Aluno extends Pessoa {
     @Override
     public String toString() {
         return "Aluno: " +
+                "Nome: " + nome + '\n' +
+                "Email: " + email + '\n' +
                 "Numero: " + numero +'\n' +
                 "Ano matricula: " + anoMatricula + '\n' +
-                "Curso: " + curso + '\n' +
+                "Curso: " + curso.getNome() + '\n' +
                 "Regime: " + regime + '\n' +
                 "----";
     }

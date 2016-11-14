@@ -57,6 +57,12 @@ public class Data {
 
     @Override
     public String toString() {
-        return dia + '/' + mes + '/' + ano + " " + hora + ":" + minuto;
+        return "Data{" +
+                "dia=" + dia +
+                ", mes=" + mes +
+                ", ano=" + ano +
+                ", hora=" + hora +
+                ", minuto=" + minuto +
+                '}';
     }
 }

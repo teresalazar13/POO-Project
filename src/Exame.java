@@ -7,18 +7,18 @@ public class Exame {
     protected Docente docenteResponsavel;
     protected ArrayList<Docente> vigilantes;
     protected ArrayList<NaoDocente> funcionariosNaoDocentes;
-    protected ArrayList<AlunoClassificacao> alunoClassificao;
+    protected ArrayList<AlunoClassificacao> alunosClassificao;
 
     public Exame() {}
 
-    public Exame(Disciplina disciplina, Data data, int duracao, Docente docenteResponsavel, ArrayList<Docente> vigilantes, ArrayList<NaoDocente> funcionariosNaoDocentes, ArrayList<AlunoClassificacao> alunoClassificao) {
+    public Exame(Disciplina disciplina, Data data, int duracao, Docente docenteResponsavel, ArrayList<Docente> vigilantes, ArrayList<NaoDocente> funcionariosNaoDocentes, ArrayList<AlunoClassificacao> alunosClassificao) {
         this.disciplina = disciplina;
         this.data = data;
         this.duracao = duracao;
         this.docenteResponsavel = docenteResponsavel;
         this.vigilantes = vigilantes;
         this.funcionariosNaoDocentes = funcionariosNaoDocentes;
-        this.alunoClassificao = alunoClassificao;
+        this.alunosClassificao = alunosClassificao;
     }
 
     public Disciplina getDisciplina() {
@@ -70,11 +70,11 @@ public class Exame {
     }
 
     public ArrayList<AlunoClassificacao> getAlunoClassificao() {
-        return alunoClassificao;
+        return alunosClassificao;
     }
 
     public void setAlunoClassificao(ArrayList<AlunoClassificacao> alunoClassificao) {
-        this.alunoClassificao = alunoClassificao;
+        this.alunosClassificao = alunoClassificao;
     }
 
     @Override
@@ -83,10 +83,10 @@ public class Exame {
                 "Disciplina: " + disciplina + '\n' +
                 "Data: " + data + '\n' +
                 "Duracao: " + duracao + '\n' +
-                "Docente responsavel: " + docenteResponsavel + '\n' +
-                "Vigilantes: " + vigilantes + '\n' +
-                "Duncionarios nao docentes: " + funcionariosNaoDocentes + '\n' +
-                "Aluno + Classificao: " + alunoClassificao + '\n' +
+                "Docente responsavel: " + docenteResponsavel.getNome() + '\n' +
+                "Vigilantes: " + "--lista de vigilantes--" + '\n' +
+                "Funcionarios nao docentes: " + "--lista de funcionario NDocentes--" + '\n' +
+                "Aluno + Classificao: " + "--lista de alunos--" + '\n' +
                 "----";
     }
 }

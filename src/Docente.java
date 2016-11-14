@@ -18,8 +18,8 @@ public class Docente extends Funcionario {
 
     @Override
     public String toString() {
-        return "Docente: " + '\n' +
-                "Area investigacao: " + areaInvestigacao + '\n' +
-                "----";
+        return "Docente{" +
+                "areaInvestigacao='" + areaInvestigacao + '\'' +
+                '}';
     }
 }
