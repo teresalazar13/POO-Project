@@ -18,7 +18,10 @@ public class NaoDocente extends Funcionario {
 
     @Override
     public String toString() {
-        return "Nao Docente: " + '\n' +
+        return "Nao Docente: " + nome + '\n' +
+                "Email: " + email + '\n' +
+                "Numero mecanografico" + numeroMecanografico + '\n' +
+                "Categoria: " + categoria + '\n' +
                 "Cargo: " + cargo + '\n' +
                 "----";
     }

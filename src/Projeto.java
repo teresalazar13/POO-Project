@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.lang.reflect.*;
 
 public class Projeto {
 
@@ -19,49 +20,109 @@ public class Projeto {
     public static void listarExames() {
         System.out.println("----LISTA DE EXAMES----");
         Iterator<Exame> it = exames.iterator();
+        int i = 1;
         while(it.hasNext()) {
-            System.out.println(it.next());
+            System.out.println(i + ": " + it.next());
+            i++;
         }
     }
 
     public static void listarAlunos() {
         System.out.println("----LISTA DE ALUNOS----");
         Iterator<Aluno> it = alunos.iterator();
+        int i = 1;
         while(it.hasNext()) {
-            System.out.println(it.next());
+            System.out.println(i + ": " + it.next());
+            i++;
         }
     }
 
     public static void listarDocentes() {
         System.out.println("----LISTA DE FUNCIONARIOS DOCENTES----");
         Iterator<Docente> it = docentes.iterator();
+        int i = 1;
         while(it.hasNext()) {
-            System.out.println(it.next());
+            System.out.println(i + ": " + it.next());
+            i++;
         }
     }
 
     public static void listarNaoDocentes() {
         System.out.println("----LISTA DE FUNCIONARIOS NAO DOCENTES----");
         Iterator<NaoDocente> it = naoDocentes.iterator();
+        int i = 1;
         while(it.hasNext()) {
-            System.out.println(it.next());
+            System.out.println(i + ": " + it.next());
+            i++;
         }
     }
 
     public static void listarCursos() {
         System.out.println("----LISTA DE CURSOS----");
         Iterator<Curso> it = cursos.iterator();
+        int i = 1;
         while(it.hasNext()) {
-            System.out.println(it.next());
+            System.out.println(i + ": " + it.next());
+            i++;
         }
     }
 
     public static void listarDisciplinas() {
         System.out.println("----LISTA DE DISCIPLINAS----");
         Iterator<Disciplina> it = disciplinas.iterator();
+        int i = 1;
         while(it.hasNext()) {
-            System.out.println(it.next());
+            System.out.println(i + ": " + it.next());
+            i++;
         }
+    }
+
+    public static Exame procurarExame() {
+        listarExames();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Opcao: ");
+        int opcao = sc.nextInt();
+        return exames.get(opcao - 1);
+    }
+
+    public static Aluno procurarAluno() {
+        listarAlunos();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Opcao: ");
+        int opcao = sc.nextInt();
+        return alunos.get(opcao - 1);
+    }
+
+    public static Docente procurarDocente() {
+        listarDocentes();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Opcao: ");
+        int opcao = sc.nextInt();
+        return docentes.get(opcao - 1);
+    }
+
+    public static NaoDocente procurarNaoDocente() {
+        listarNaoDocentes();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Opcao: ");
+        int opcao = sc.nextInt();
+        return naoDocentes.get(opcao - 1);
+    }
+
+    public static Curso procurarCurso() {
+        listarCursos();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Opcao: ");
+        int opcao = sc.nextInt();
+        return cursos.get(opcao - 1);
+    }
+
+    public static Disciplina procurarDisciplina() {
+        listarDisciplinas();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Opcao: ");
+        int opcao = sc.nextInt();
+        return disciplinas.get(opcao - 1);
     }
 
     public static void menu() {
@@ -80,10 +141,13 @@ public class Projeto {
 
         listarExames();
         listarAlunos();
-        //listarDocentes();
-        //listarNaoDocentes();
-        //listarCursos();
-        //listarDisciplinas();
+        listarDocentes();
+        listarNaoDocentes();
+        listarCursos();
+        listarDisciplinas();
+
+        Aluno aluno1 = procurarAluno();
+        System.out.println(aluno1);
 
         Scanner sc = new Scanner(System.in);
         while(true) {

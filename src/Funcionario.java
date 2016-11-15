@@ -29,7 +29,8 @@ public class Funcionario extends Pessoa {
 
     @Override
     public String toString() {
-        return "Funcionario: " + '\n' +
+        return "Funcionario: " + nome + '\n' +
+                "Email: " + email + '\n' +
                 "Numero mecanografico: " + numeroMecanografico + '\n' +
                 "Categoria: " + categoria + '\n' +
                 "----";

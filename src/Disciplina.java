@@ -49,11 +49,10 @@ public class Disciplina {
 
     @Override
     public String toString() {
-        return "Disciplina{" +
-                "nome='" + nome + '\'' +
-                ", docente=" + docente.getNome() +
-                ", outrosDocentes=" + "--lista de docentes--" +
-                ", alunos=" + "--lista de alunos--" +
-                '}';
+        return "Disciplina: " + nome + '\n' +
+                "Docente: " + docente.getNome() + '\n' +
+                "OutrosDocentes: " + "--lista de docentes--" + '\n' +
+                "Alunos=" + "--lista de alunos--" + '\n' +
+                "----";
     }
 }
