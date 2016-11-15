@@ -7,18 +7,17 @@ public class Exame {
     protected Docente docenteResponsavel;
     protected ArrayList<Docente> vigilantes;
     protected ArrayList<NaoDocente> funcionariosNaoDocentes;
-    protected ArrayList<AlunoClassificacao> alunosClassificao;
+    protected ArrayList<AlunoClassificacao> alunosClassificacao;
 
     public Exame() {}
 
-    public Exame(Disciplina disciplina, Data data, int duracao, Docente docenteResponsavel, ArrayList<Docente> vigilantes, ArrayList<NaoDocente> funcionariosNaoDocentes, ArrayList<AlunoClassificacao> alunosClassificao) {
+    public Exame(Disciplina disciplina, Data data, int duracao, Docente docenteResponsavel, ArrayList<Docente> vigilantes, ArrayList<NaoDocente> funcionariosNaoDocentes) {
         this.disciplina = disciplina;
         this.data = data;
         this.duracao = duracao;
         this.docenteResponsavel = docenteResponsavel;
         this.vigilantes = vigilantes;
         this.funcionariosNaoDocentes = funcionariosNaoDocentes;
-        this.alunosClassificao = alunosClassificao;
     }
 
     public Disciplina getDisciplina() {
@@ -69,24 +68,31 @@ public class Exame {
         this.funcionariosNaoDocentes = funcionariosNaoDocentes;
     }
 
-    public ArrayList<AlunoClassificacao> getAlunoClassificao() {
-        return alunosClassificao;
+    public ArrayList<AlunoClassificacao> getAlunoClassificacao() {
+        return alunosClassificacao;
     }
 
-    public void setAlunoClassificao(ArrayList<AlunoClassificacao> alunoClassificao) {
-        this.alunosClassificao = alunoClassificao;
+    public void setAlunoClassificacao(ArrayList<AlunoClassificacao> alunoClassificacao) {
+        this.alunosClassificacao = alunoClassificacao;
     }
 
     @Override
     public String toString() {
-        return "Exame: " + '\n' +
-                "Disciplina: " + disciplina + '\n' +
+        String str = "Exame: " + '\n' +
+                "Disciplina: " + disciplina.getNome() + '\n' +
                 "Data: " + data + '\n' +
                 "Duracao: " + duracao + '\n' +
                 "Docente responsavel: " + docenteResponsavel.getNome() + '\n' +
-                "Vigilantes: " + "--lista de vigilantes--" + '\n' +
-                "Funcionarios nao docentes: " + "--lista de funcionario NDocentes--" + '\n' +
-                "Aluno + Classificao: " + "--lista de alunos--" + '\n' +
-                "----";
+                "Vigilantes: ";
+        for(int i = 0; i < vigilantes.size(); i++) {
+            str += vigilantes.get(i).getNome() + "; ";
+        }
+        str += "\nFuncionarios nao docentes: ";
+        for (int i = 0; i < funcionariosNaoDocentes.size(); i++) {
+            str += funcionariosNaoDocentes.get(i).getNome() + "; ";
+        }
+        str += "\nAluno + Classificacao: " + "--lista de alunos--" + '\n' +
+        "----";
+        return str;
     }
 }

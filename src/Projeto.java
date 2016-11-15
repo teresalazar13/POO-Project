@@ -13,8 +13,50 @@ public class Projeto {
     public static ArrayList<Disciplina> disciplinas = new ArrayList<Disciplina>();
 
     public static void adicionarExame() {
-        Exame exame = new Exame();
+        Scanner sc = new Scanner(System.in);
+        Disciplina disciplina = procurarDisciplina();
+        Data data = data();
+        System.out.print("Duracao: ");
+        int duracao = sc.nextInt();
+        Docente docenteResponsavel = procurarDocente();
+        ArrayList<Docente> vigilantes = new ArrayList<Docente>();
+        while(true) {
+            Docente vigilante = procurarDocente();
+            System.out.print("Adicionar mais? (0 ou 1)");
+            int opcao = sc.nextInt();
+            vigilantes.add(vigilante);
+            if (opcao == 0) {
+                break;
+            }
+        }
+        ArrayList<NaoDocente> funcionariosNaoDocentes = new ArrayList<NaoDocente>();
+        while(true) {
+            NaoDocente funcionarioNaoDocente = procurarNaoDocente();
+            System.out.print("Adicionar mais? (0 ou 1)");
+            int opcao = sc.nextInt();
+            funcionariosNaoDocentes.add(funcionarioNaoDocente);
+            if (opcao == 0) {
+                break;
+            }
+        }
+        Exame exame = new Exame(disciplina, data, duracao, docenteResponsavel, vigilantes, funcionariosNaoDocentes);
         exames.add(exame);
+    }
+
+    public static Data data() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Dia");
+        int dia = sc.nextInt();
+        System.out.println("Mes");
+        int mes = sc.nextInt();
+        System.out.println("Ano");
+        int ano = sc.nextInt();
+        System.out.println("Hora");
+        int hora = sc.nextInt();
+        System.out.println("Minuto");
+        int minuto = sc.nextInt();
+        Data data = new Data(dia, mes, ano, hora, minuto);
+        return data;
     }
 
     public static void listarExames() {
@@ -139,6 +181,7 @@ public class Projeto {
         alunos.add(aluno);
         naoDocentes.add(naoDocente);
 
+        /*
         listarExames();
         listarAlunos();
         listarDocentes();
@@ -147,7 +190,7 @@ public class Projeto {
         listarDisciplinas();
 
         Aluno aluno1 = procurarAluno();
-        System.out.println(aluno1);
+        System.out.println(aluno1);*/
 
         Scanner sc = new Scanner(System.in);
         while(true) {
@@ -168,6 +211,7 @@ public class Projeto {
             switch (opcao) {
                 case 1:
                     adicionarExame();
+                    listarExames();
                     break;
                 case 6:
                     listarExames();
