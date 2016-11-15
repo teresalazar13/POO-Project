@@ -20,7 +20,7 @@ public class NaoDocente extends Funcionario {
     public String toString() {
         return "Nao Docente: " + nome + '\n' +
                 "Email: " + email + '\n' +
-                "Numero mecanografico" + numeroMecanografico + '\n' +
+                "Numero mecanografico: " + numeroMecanografico + '\n' +
                 "Categoria: " + categoria + '\n' +
                 "Cargo: " + cargo + '\n' +
                 "----";

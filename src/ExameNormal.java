@@ -4,8 +4,8 @@ public class ExameNormal extends Exame{
 
     public ExameNormal() {}
 
-    public ExameNormal(Disciplina disciplina, Data data, int duracao, Docente docenteResponsavel, ArrayList<Docente> vigilantes, ArrayList<NaoDocente> funcionariosNaoDocentes) {
-        super(disciplina, data, duracao, docenteResponsavel, vigilantes, funcionariosNaoDocentes);
+    public ExameNormal(Disciplina disciplina, Data data, int duracao, Docente docenteResponsavel, ArrayList<Docente> vigilantes) {
+        super(disciplina, data, duracao, docenteResponsavel, vigilantes);
     }
 
     @Override
