@@ -21,7 +21,7 @@ public class Projeto {
         ArrayList<Docente> vigilantes = new ArrayList<Docente>();
         ArrayList<Docente> docentesDisciplina = disciplina.getOutrosDocentes(); // Adicionar docentes da disciplina aos vigilantes se tiverem disponibilidade
         for (int i = 0; i < docentesDisciplina.size(); i++) {
-            if (compararData(data, duracao, docentesDisciplina.get(i)) == 1) {
+            if (verificarDisponibilidadeDocente(data, duracao, docentesDisciplina.get(i)) == 1) {
                 vigilantes.add(docentesDisciplina.get(i));
             }
         }
@@ -29,23 +29,49 @@ public class Projeto {
         exames.add(exame);
     }
 
-    private static int compararData(Data data, int duracao, Docente docente) {
-        int dataInicio = data.getAno() * 10000000 + data.getMes() * 100000 + data.getDia() * 1000 + data.getHora() * 10 + data.getMinuto();
-        int dataFim = dataInicio + duracao;
-        System.out.println(dataInicio + " " + dataFim);
+    private static int verificarDisponibilidadeDocente(Data data, int duracao, Docente docente) {
         for (int i = 0; i < exames.size(); i++) {
             if (exames.get(i).contemDocente(docente)) {
                 Data dataExame = exames.get(i).getData();
                 int duracaoExame = exames.get(i).getDuracao();
-                int exameInicio = dataExame.getAno() * 10000000 + dataExame.getMes() * 100000 + dataExame.getDia() * 1000 + dataExame.getHora() * 10 + dataExame.getMinuto();
-                int exameFim = exameInicio + duracaoExame;
-                System.out.println(exameInicio + " " + exameFim);
-                if ((dataInicio >= exameInicio && dataInicio <= exameFim) || (dataFim >= exameInicio && dataFim <= exameFim)) {
-                    return 0; // caso data coincida com exame do vigilante
+                if (compararData(data, duracao, dataExame, duracaoExame) == 0) {
+                    return 0;
                 }
             }
         }
-        return 1; // caso o docente tenho disponibilidade para vigiar o exame
+        return 1; // caso o docente tenha disponibilidade para vigiar o exame
+    }
+
+    private static int compararData(Data data, int duracao, Data dataExame, int duracaoExame) {
+        int dataInicio = data.getAno() * 10000000 + data.getMes() * 100000 + data.getDia() * 1000 + data.getHora() * 10 + data.getMinuto();
+        int dataFim = dataInicio + duracao;
+        int exameInicio = dataExame.getAno() * 10000000 + dataExame.getMes() * 100000 + dataExame.getDia() * 1000 + dataExame.getHora() * 10 + dataExame.getMinuto();
+        int exameFim = exameInicio + duracaoExame;
+        if ((dataInicio >= exameInicio && dataInicio <= exameFim) || (dataFim >= exameInicio && dataFim <= exameFim)) {
+            return 0; // caso data coincida
+        }
+        else {
+            return 1; // caso haja disponibilidade
+        }
+    }
+
+    private static void configurarSala() {
+        Scanner sc = new Scanner(System.in);
+        Exame exame = procurarExame();
+        Data data = exame.getData();
+        int duracao = exame.getDuracao();
+        System.out.println("Sala: ");
+        int sala = sc.nextInt();
+        for (int i = 0; i < exames.size(); i++) {
+            Data dataExame = exames.get(i).getData();
+            int duracaoExame = exames.get(i).getDuracao();
+            if (compararData(data, duracao, dataExame, duracaoExame) == 0) {
+                System.out.println("Nao ha disponibilidade para esta sala.");
+                return;
+            }
+        }
+        exame.setSala(sala);
+        System.out.println("Sala marcada.");
     }
 
     private static void convocarFuncionarios() { // Convocar vigilantes e funcionários
@@ -56,7 +82,7 @@ public class Projeto {
             Docente vigilante = procurarDocente();
             System.out.print("Adicionar mais? (0 ou 1)");
             int opcao = sc.nextInt();
-            if (compararData(exame.getData(), exame.getDuracao(), vigilante) == 1) {
+            if (verificarDisponibilidadeDocente(exame.getData(), exame.getDuracao(), vigilante) == 1) {
                 vigilantes.add(vigilante);
             }
             else {
@@ -244,6 +270,9 @@ public class Projeto {
             switch (opcao) {
                 case 1:
                     adicionarExame();
+                    break;
+                case 2:
+                    configurarSala();
                     break;
                 case 3:
                     convocarFuncionarios();

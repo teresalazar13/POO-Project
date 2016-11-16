@@ -4,6 +4,7 @@ public class Exame {
     protected Disciplina disciplina;
     protected Data data;
     protected int duracao;
+    protected int sala;
     protected Docente docenteResponsavel;
     protected ArrayList<Docente> vigilantes;
     protected ArrayList<NaoDocente> funcionariosNaoDocentes;
@@ -15,6 +16,7 @@ public class Exame {
         this.disciplina = disciplina;
         this.data = data;
         this.duracao = duracao;
+        this.sala = 0;
         this.docenteResponsavel = docenteResponsavel;
         this.vigilantes = vigilantes;
         this.funcionariosNaoDocentes = new ArrayList<NaoDocente>();
@@ -43,6 +45,15 @@ public class Exame {
 
     public void setDuracao(int duracao) {
         this.duracao = duracao;
+    }
+
+
+    public int getSala() {
+        return sala;
+    }
+
+    public void setSala(int sala) {
+        this.sala = sala;
     }
 
     public Docente getDocenteResponsavel() {
@@ -92,6 +103,7 @@ public class Exame {
                 "Disciplina: " + disciplina.getNome() + '\n' +
                 "Data: " + data + '\n' +
                 "Duracao: " + duracao + '\n' +
+                "Sala: " + sala + '\n' +
                 "Docente responsavel: " + docenteResponsavel.getNome() + '\n' +
                 "Vigilantes: ";
         for(int i = 0; i < vigilantes.size(); i++) {
