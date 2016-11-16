@@ -4,9 +4,8 @@ public class AlunoClassificacao {
 
     public AlunoClassificacao() {}
 
-    public AlunoClassificacao(Aluno aluno, int classificacao) {
+    public AlunoClassificacao(Aluno aluno) {
         this.aluno = aluno;
-        this.classificacao = classificacao;
     }
 
     public Aluno getAluno() {

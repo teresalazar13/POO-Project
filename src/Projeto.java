@@ -25,8 +25,21 @@ public class Projeto {
                 vigilantes.add(docentesDisciplina.get(i));
             }
         }
-        Exame exame = new Exame(disciplina, data, duracao, docenteResponsavel, vigilantes);
-        exames.add(exame);
+        System.out.println("Escolha o tipo de exame");
+        System.out.println("1: Exame Normal\n2: Exame Recurso\n3: Exame Especial\nOpcao: ");
+        int opcao = sc.nextInt();
+        if (opcao == 1) {
+            Exame exame = new ExameNormal(disciplina, data, duracao, docenteResponsavel, vigilantes);
+            exames.add(exame);
+        }
+        else if(opcao == 2) {
+            Exame exame = new ExameRecurso(disciplina, data, duracao, docenteResponsavel, vigilantes);
+            exames.add(exame);
+        }
+        else if (opcao == 3) {
+            Exame exame = new ExameEspecial(disciplina, data, duracao, docenteResponsavel, vigilantes);
+            exames.add(exame);
+        }
     }
 
     private static int verificarDisponibilidadeDocente(Data data, int duracao, Docente docente) {
@@ -72,6 +85,34 @@ public class Projeto {
         }
         exame.setSala(sala);
         System.out.println("Sala marcada.");
+    }
+
+    private static void inscreverAluno() { // Inscrever alunos em exame, assegurando que estao inscritos em disciplina e que tem acesso a epoxa do exame
+        Aluno aluno = procurarAluno();
+        Exame exame = procurarExame();
+        Disciplina disciplina = exame.getDisciplina();
+        ArrayList<Aluno> alunos = disciplina.getAlunos();
+        int checkInscricaoDisciplina = 0;
+        for (int i = 0; i < alunos.size(); i++) {
+            if (alunos.get(i).getNumero() == aluno.getNumero()) {
+                checkInscricaoDisciplina = 1;
+            }
+        }
+        if (checkInscricaoDisciplina == 0) {
+            System.out.println("Aluno nao inscrito em disciplina.");
+            return;
+        }
+        String regime = aluno.getRegime();
+        Class classe = exame.getClass();
+        if (classe.toString().equals("class ExameEspecial")) {
+            if (regime.equals("Normal") || regime.equals("Erasmus")) {
+                System.out.println("Aluno nao tem acesso a esta epoca de exame.");
+                return;
+            }
+        }
+        ArrayList<AlunoClassificacao> alunosClassificacao = exame.getAlunoClassificacao();
+        AlunoClassificacao alunoClassificacao = new AlunoClassificacao(aluno);
+        alunosClassificacao.add(alunoClassificacao);
     }
 
     private static void convocarFuncionarios() { // Convocar vigilantes e funcionários
@@ -233,12 +274,15 @@ public class Projeto {
         Curso curso = new Curso("Engenharia Informatica", 3, "Licenciatura", disciplinas);
         Aluno aluno = new Aluno("Teresa", "teresa.sal13@gmail.com", 20, 1, curso, "normal");
         NaoDocente naoDocente = new NaoDocente("Jorge", "jorge@gmail.com", 10, "Tecnico", "Secretaria");
+        Data data = new Data(1, 2, 3, 4, 5);
+        Exame exame = new ExameNormal(disciplina, data, 10, docente, docentes);
 
         docentes.add(docente);
         disciplinas.add(disciplina);
         cursos.add(curso);
         alunos.add(aluno);
         naoDocentes.add(naoDocente);
+        exames.add(exame);
 
         /*
         listarExames();
@@ -257,7 +301,7 @@ public class Projeto {
                     "1 - Criar Exame\n" +
                     "2 - Configurar sala de exame\n" +
                     "3 - Convocar vigilantes e funcionários\n" +
-                    "4 - Inscrever alunos\n" +
+                    "4 - Inscreve aluno em exame\n" +
                     "5 - Lançar notas de um exame\n" +
                     "6 - Listar Exames\n" +
                     "7 - Listar alunos de exame e respetivas classificações\n" +
@@ -276,6 +320,9 @@ public class Projeto {
                     break;
                 case 3:
                     convocarFuncionarios();
+                    break;
+                case 4:
+                    inscreverAluno();
                     break;
                 case 6:
                     listarExames();
