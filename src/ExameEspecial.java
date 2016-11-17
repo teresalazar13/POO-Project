@@ -9,6 +9,6 @@ public class ExameEspecial extends Exame {
 
     @Override
     public String toString() {
-        return "Exame Especial: ";
+        return "Exame Especial\n " + super.toString();
     }
 }

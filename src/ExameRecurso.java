@@ -10,6 +10,6 @@ public class ExameRecurso extends Exame {
 
     @Override
     public String toString() {
-        return "Exame Recurso: ";
+        return "Exame Recurso\n" + super.toString();
     }
 }

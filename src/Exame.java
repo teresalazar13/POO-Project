@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Exame {
     protected Disciplina disciplina;
@@ -10,7 +11,8 @@ public class Exame {
     protected ArrayList<NaoDocente> funcionariosNaoDocentes;
     protected ArrayList<AlunoClassificacao> alunosClassificacao;
 
-    public Exame() {}
+    public Exame() {
+    }
 
     public Exame(Disciplina disciplina, Data data, int duracao, Docente docenteResponsavel, ArrayList<Docente> vigilantes) {
         this.disciplina = disciplina;
@@ -97,24 +99,33 @@ public class Exame {
         return false;
     }
 
+    public void lancarNotas() {
+        Scanner sc = new Scanner(System.in);
+        for (int i = 0; i < alunosClassificacao.size(); i++) {
+            System.out.print(alunosClassificacao.get(i).getAluno().getNome() + ": ");
+            int nota = sc.nextInt();
+            alunosClassificacao.get(i).setClassificacao(nota);
+        }
+    }
+
+    public void listarNotas() {
+        Scanner sc = new Scanner (System.in);
+        for(int i = 0; i < alunosClassificacao.size(); i++ ){
+            System.out.println(alunosClassificacao.get(i).getAluno().getNome() + ": " + alunosClassificacao.get(i).getClassificacao());
+        }
+    }
+
+
     @Override
     public String toString() {
-        String str = "Exame: " + '\n' +
-                "Disciplina: " + disciplina.getNome() + '\n' +
-                "Data: " + data + '\n' +
-                "Duracao: " + duracao + '\n' +
-                "Sala: " + sala + '\n' +
-                "Docente responsavel: " + docenteResponsavel.getNome() + '\n' +
-                "Vigilantes: ";
-        for(int i = 0; i < vigilantes.size(); i++) {
-            str += vigilantes.get(i).getNome() + " (" + vigilantes.get(i).getNumeroMecanografico() + ") "+ "; ";
-        }
-        str += "\nFuncionarios nao docentes: ";
-        for (int i = 0; i < funcionariosNaoDocentes.size(); i++) {
-            str += funcionariosNaoDocentes.get(i).getNome() + " (" + funcionariosNaoDocentes.get(i).getNumeroMecanografico() + ") " + "; ";
-        }
-        str += "\nAluno + Classificacao: " + "--lista de alunos--" + '\n' +
-        "----";
-        return str;
+        return "Disciplina: " + disciplina.getNome() +
+                "\nData: " + data +
+                "\nDuracao: " + duracao +
+                "\nSala: " + sala +
+                "\nDocente responsavel: " + docenteResponsavel.getNome() +
+                "\nVigilantes: " + vigilantes.size() +
+                "\nFuncionarios nao docentes: " + funcionariosNaoDocentes.size() +
+                "\nNumero Alunos " + alunosClassificacao.size() +
+                "\n----";
     }
 }

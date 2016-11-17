@@ -10,6 +10,6 @@ public class ExameNormal extends Exame{
 
     @Override
     public String toString() {
-        return "Exame Normal: ";
+        return "Exame Normal\n" + super.toString();
     }
 }
