@@ -109,12 +109,46 @@ public class Exame {
     }
 
     public void listarNotas() {
-        Scanner sc = new Scanner (System.in);
         for(int i = 0; i < alunosClassificacao.size(); i++ ){
             System.out.println(alunosClassificacao.get(i).getAluno().getNome() + ": " + alunosClassificacao.get(i).getClassificacao());
         }
     }
 
+    public void listarFuncionarios() {
+        System.out.println("Docente Responsavel: " + docenteResponsavel);
+        System.out.println("Vigilantes");
+        for (int i = 0; i < vigilantes.size(); i++) {
+            System.out.println(vigilantes.get(i));
+        }
+        System.out.println("Funcionario Nao Docentes");
+        for (int i = 0; i < funcionariosNaoDocentes.size(); i++) {
+            System.out.println(funcionariosNaoDocentes.get(i));
+        }
+    }
+
+    public boolean verificaAlunoInscrito(int numero) {
+        for (int i = 0; i < alunosClassificacao.size(); i++) {
+            if (alunosClassificacao.get(i).getAluno().getNumero() == numero)
+                return true;
+        }
+        return false;
+    }
+
+    public boolean verificaVigilante(int numero) {
+        for (int i = 0; i < vigilantes.size(); i++) {
+            if (vigilantes.get(i).getNumeroMecanografico() == numero)
+                return true;
+        }
+        return false;
+    }
+
+    public boolean verificaFuncionarioNaoDocente(int numero) {
+        for (int i = 0; i < funcionariosNaoDocentes.size(); i++) {
+            if (funcionariosNaoDocentes.get(i).getNumeroMecanografico() == numero)
+                return true;
+        }
+        return false;
+    }
 
     @Override
     public String toString() {

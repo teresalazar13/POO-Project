@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -7,7 +6,7 @@ public class Projeto {
 
     private static void adicionarExame(ArrayList<Exame> exames, ArrayList<Disciplina> disciplinas) {
         Scanner sc = new Scanner(System.in);
-        Disciplina disciplina = procurarDisciplina(disciplinas);
+        Disciplina disciplina = escolherDisciplina(disciplinas);
         Data data = data();
         System.out.print("Duracao: ");
         int duracao = sc.nextInt();
@@ -64,7 +63,7 @@ public class Projeto {
 
     private static void configurarSala(ArrayList<Exame> exames) {
         Scanner sc = new Scanner(System.in);
-        Exame exame = procurarExame(exames);
+        Exame exame = escolherExame(exames);
         Data data = exame.getData();
         int duracao = exame.getDuracao();
         System.out.println("Sala: ");
@@ -81,9 +80,10 @@ public class Projeto {
         System.out.println("Sala marcada.");
     }
 
-    private static void inscreverAluno(ArrayList<Aluno> alunos, ArrayList<Exame> exames) { // Inscrever alunos em exame, assegurando que estao inscritos em disciplina e que tem acesso a epoca do exame
-        Aluno aluno = procurarAluno(alunos);
-        Exame exame = procurarExame(exames);
+
+    private static void inscreverAluno(ArrayList<Pessoa> pessoas, ArrayList<Exame> exames) { // Inscrever alunos em exame, assegurando que estao inscritos em disciplina e que tem acesso a epoca do exame
+        Aluno aluno = (Aluno) escolherPessoa(pessoas, "Aluno");
+        Exame exame = escolherExame(exames);
         Disciplina disciplina = exame.getDisciplina();
         ArrayList<Aluno> alunosDisciplina = disciplina.getAlunos();
         int checkInscricaoDisciplina = 0;
@@ -109,12 +109,12 @@ public class Projeto {
         alunosClassificacao.add(alunoClassificacao);
     }
 
-    private static void convocarFuncionarios(ArrayList<Exame> exames, ArrayList<Docente> docentes, ArrayList<NaoDocente> naoDocentes) { // Convocar vigilantes e funcionários
+    private static void convocarFuncionarios(ArrayList<Exame> exames, ArrayList<Pessoa> pessoas) { // Convocar vigilantes e funcionários
         Scanner sc = new Scanner(System.in);
-        Exame exame = procurarExame(exames);
+        Exame exame = escolherExame(exames);
         ArrayList<Docente> vigilantes = exame.getVigilantes();
         while(true) {
-            Docente vigilante = procurarDocente(docentes);
+            Docente vigilante = (Docente) escolherPessoa(pessoas, "Docente");
             System.out.print("Adicionar mais? (0 ou 1)");
             int opcao = sc.nextInt();
             if (verificarDisponibilidadeDocente(exames, exame.getData(), exame.getDuracao(), vigilante) == 1) {
@@ -129,7 +129,7 @@ public class Projeto {
         }
         ArrayList<NaoDocente> funcionariosNaoDocentes = exame.getFuncionariosNaoDocentes();
         while(true) {
-            NaoDocente funcionarioNaoDocente = procurarNaoDocente(naoDocentes);
+            NaoDocente funcionarioNaoDocente = (NaoDocente) escolherPessoa(pessoas, "NaoDocente");
             System.out.print("Adicionar mais? (0 ou 1)");
             int opcao = sc.nextInt();
             funcionariosNaoDocentes.add(funcionarioNaoDocente);
@@ -139,6 +139,36 @@ public class Projeto {
         }
     }
 
+    private static void listarExamesAluno(ArrayList<Exame> exames, ArrayList<Pessoa> pessoas) {
+        Aluno aluno = (Aluno) escolherPessoa(pessoas, "Aluno");
+        int numeroAluno = aluno.getNumero();
+        for (int i = 0; i < exames.size(); i++) {
+            if (exames.get(i).verificaAlunoInscrito(numeroAluno))
+                System.out.println(exames.get(i));
+        }
+    }
+
+    private static void listarExamesFuncionario(ArrayList<Exame> exames, ArrayList<Pessoa> pessoas) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Verificar:\n1- Docente Vigilante\n 2- Funcionario de apoio");
+        int opcao = sc.nextInt();
+        if (opcao == 1) {
+            Docente docente = (Docente) escolherPessoa(pessoas, "Docente");
+            for (int i = 0; i < exames.size(); i++) {
+                if (exames.get(i).verificaVigilante(docente.getNumeroMecanografico())) {
+                    System.out.println(exames.get(i));
+                }
+            }
+        }
+        else if (opcao == 2) {
+            NaoDocente naoDocente = (NaoDocente) escolherPessoa(pessoas, "NaoDocente");
+            for (int i = 0; i < exames.size(); i++) {
+                if (exames.get(i).verificaFuncionarioNaoDocente(naoDocente.getNumeroMecanografico())) {
+                    System.out.println(exames.get(i));
+                }
+            }
+        }
+    }
 
     private static Data data() {
         Scanner sc = new Scanner(System.in);
@@ -165,32 +195,13 @@ public class Projeto {
         }
     }
 
-    private static void listarAlunos(ArrayList<Aluno> alunos ) {
-        System.out.println("----LISTA DE ALUNOS----");
-        Iterator<Aluno> it = alunos.iterator();
-        int i = 1;
-        while(it.hasNext()) {
-            System.out.println(i + ": " + it.next());
-            i++;
-        }
-    }
-
-    private static void listarDocentes(ArrayList<Docente> docentes) {
-        System.out.println("----LISTA DE FUNCIONARIOS DOCENTES----");
-        Iterator<Docente> it = docentes.iterator();
-        int i = 1;
-        while(it.hasNext()) {
-            System.out.println(i + ": " + it.next());
-            i++;
-        }
-    }
-
-    private static void listarNaoDocentes(ArrayList<NaoDocente> naoDocentes) {
-        System.out.println("----LISTA DE FUNCIONARIOS NAO DOCENTES----");
-        Iterator<NaoDocente> it = naoDocentes.iterator();
-        int i = 1;
-        while(it.hasNext()) {
-            System.out.println(i + ": " + it.next());
+    private static void listarPessoas(ArrayList<Pessoa> pessoas, String classe) {
+        System.out.println("----LISTA DE "+ classe.toUpperCase() + "----");
+        for (int i = 0; i < pessoas.size(); i++) {
+            String className = pessoas.get(i).getClass().getName();
+            if (className.equals(classe)) {
+                System.out.println(i+1 + ": " + pessoas.get(i).toString());
+            }
             i++;
         }
     }
@@ -215,7 +226,7 @@ public class Projeto {
         }
     }
 
-    private static Exame procurarExame(ArrayList<Exame> exames) {
+    private static Exame escolherExame(ArrayList<Exame> exames) {
         listarExames(exames);
         Scanner sc = new Scanner(System.in);
         System.out.println("Opcao: ");
@@ -223,31 +234,15 @@ public class Projeto {
         return exames.get(opcao - 1);
     }
 
-    private static Aluno procurarAluno(ArrayList<Aluno> alunos) {
-        listarAlunos(alunos);
+    private static Pessoa escolherPessoa(ArrayList<Pessoa> pessoas, String classe) {
+        listarPessoas(pessoas, classe);
         Scanner sc = new Scanner(System.in);
         System.out.println("Opcao: ");
         int opcao = sc.nextInt();
-        return alunos.get(opcao - 1);
+        return (Aluno) pessoas.get(opcao - 1);
     }
 
-    private static Docente procurarDocente(ArrayList<Docente> docentes) {
-        listarDocentes(docentes);
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Opcao: ");
-        int opcao = sc.nextInt();
-        return docentes.get(opcao - 1);
-    }
-
-    private static NaoDocente procurarNaoDocente(ArrayList<NaoDocente> naoDocentes) {
-        listarNaoDocentes(naoDocentes);
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Opcao: ");
-        int opcao = sc.nextInt();
-        return naoDocentes.get(opcao - 1);
-    }
-
-    private static Curso procurarCurso(ArrayList<Curso> cursos) {
+    private static Curso escolherCurso(ArrayList<Curso> cursos) {
         listarCursos(cursos);
         Scanner sc = new Scanner(System.in);
         System.out.println("Opcao: ");
@@ -255,7 +250,7 @@ public class Projeto {
         return cursos.get(opcao - 1);
     }
 
-    private static Disciplina procurarDisciplina(ArrayList<Disciplina> disciplinas) {
+    private static Disciplina escolherDisciplina(ArrayList<Disciplina> disciplinas) {
         listarDisciplinas(disciplinas);
         Scanner sc = new Scanner(System.in);
         System.out.println("Opcao: ");
@@ -263,7 +258,7 @@ public class Projeto {
         return disciplinas.get(opcao - 1);
     }
 
-    private static void menu(ArrayList<Exame> exames, ArrayList<Aluno> alunos, ArrayList<Docente> docentes, ArrayList<NaoDocente> naoDocentes, ArrayList<Curso> cursos, ArrayList<Disciplina> disciplinas) {
+    private static void menu(ArrayList<Exame> exames, ArrayList<Aluno> alunos, ArrayList<Docente> docentes, ArrayList<NaoDocente> naoDocentes, ArrayList<Pessoa> pessoas, ArrayList<Curso> cursos, ArrayList<Disciplina> disciplinas) {
         Docente docente = new Docente("Marilia Curado", "mariliacurado@dei.uc.pt", 1, "Catedratico", "Engenharia de Software");
         Disciplina disciplina = new Disciplina("POO", docente, docentes, alunos);
         Curso curso = new Curso("Engenharia Informatica", 3, "Licenciatura", disciplinas);
@@ -273,22 +268,19 @@ public class Projeto {
         Exame exame = new ExameNormal(disciplina, data, 10, docente, docentes);
 
         docentes.add(docente);
+        pessoas.add(docente);
         disciplinas.add(disciplina);
         cursos.add(curso);
         alunos.add(aluno);
+        pessoas.add(aluno);
         naoDocentes.add(naoDocente);
+        pessoas.add(naoDocente);
         exames.add(exame);
-
-        /*
-        listarExames();
-        listarAlunos();
-        listarDocentes();
-        listarNaoDocentes();
+        
+        /*listarExames();
+        listarPessoas(pessoas, "Docente");
         listarCursos();
-        listarDisciplinas();
-
-        Aluno aluno1 = procurarAluno();
-        System.out.println(aluno1);*/
+        listarDisciplinas();*/
 
         Scanner sc = new Scanner(System.in);
         while(true) {
@@ -303,7 +295,6 @@ public class Projeto {
                     "8 - Listar exames de aluno e respetivas classificações\n" +
                     "9 - Listar docentes e funcionarios de exame\n" +
                     "10 - Listar exames de docente ou funcionario\n" +
-                    "11 - Listar notas de exame\n" +
                     "0 para sair");
             int opcao = sc.nextInt();
             switch (opcao) {
@@ -314,23 +305,30 @@ public class Projeto {
                     configurarSala(exames);
                     break;
                 case 3:
-                    convocarFuncionarios(exames, docentes, naoDocentes);
+                    convocarFuncionarios(exames, pessoas);
                     break;
                 case 4:
-                    inscreverAluno(alunos, exames);
+                    inscreverAluno(pessoas, exames);
                     break;
                 case 5:
-                    Exame exameEscolhido = procurarExame(exames);
+                    Exame exameEscolhido = escolherExame(exames);
                     exameEscolhido.lancarNotas();
                     break;
                 case 6:
                     listarExames(exames);
                     break;
-                case 10:
-
-                case 11:
-                    Exame exameEscolhidoNotas = procurarExame(exames);
+                case 7:
+                    Exame exameEscolhidoNotas = escolherExame(exames);
                     exameEscolhidoNotas.listarNotas();
+                    break;
+                case 8:
+                    listarExamesAluno(exames, pessoas);
+                    break;
+                case 9:
+                    Exame exameEscolhidoFuncionarios = escolherExame(exames);
+                    exameEscolhidoFuncionarios.listarFuncionarios();
+                case 10:
+                    listarExamesFuncionario(exames, pessoas);
                     break;
                 default:
                     return;
@@ -343,8 +341,9 @@ public class Projeto {
         ArrayList<Aluno> alunos = new ArrayList<Aluno>();
         ArrayList<Docente> docentes = new ArrayList<Docente>();
         ArrayList<NaoDocente> naoDocentes = new ArrayList<NaoDocente>();
+        ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
         ArrayList<Curso> cursos = new ArrayList<Curso>();
         ArrayList<Disciplina> disciplinas = new ArrayList<Disciplina>();
-        menu(exames, alunos, docentes, naoDocentes, cursos, disciplinas);
+        menu(exames, alunos, docentes, naoDocentes, pessoas, cursos, disciplinas);
     }
 }
