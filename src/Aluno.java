@@ -1,4 +1,6 @@
-public class Aluno extends Pessoa {
+import java.io.Serializable;
+
+public class Aluno extends Pessoa implements Serializable{
     private int numero, anoMatricula;
     private Curso curso;
     private String regime;

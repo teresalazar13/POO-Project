@@ -25,6 +25,7 @@ public class Exame {
         this.alunosClassificacao = new ArrayList<AlunoClassificacao>();
     }
 
+
     public Disciplina getDisciplina() {
         return disciplina;
     }
@@ -48,7 +49,6 @@ public class Exame {
     public void setDuracao(int duracao) {
         this.duracao = duracao;
     }
-
 
     public int getSala() {
         return sala;
@@ -120,7 +120,7 @@ public class Exame {
         for (int i = 0; i < vigilantes.size(); i++) {
             System.out.println(vigilantes.get(i));
         }
-        System.out.println("Funcionario Nao Docentes");
+        System.out.println("Funcionarios Nao Docentes");
         for (int i = 0; i < funcionariosNaoDocentes.size(); i++) {
             System.out.println(funcionariosNaoDocentes.get(i));
         }
@@ -157,9 +157,9 @@ public class Exame {
                 "\nDuracao: " + duracao +
                 "\nSala: " + sala +
                 "\nDocente responsavel: " + docenteResponsavel.getNome() +
-                "\nVigilantes: " + vigilantes.size() +
-                "\nFuncionarios nao docentes: " + funcionariosNaoDocentes.size() +
-                "\nNumero Alunos " + alunosClassificacao.size() +
+                "\nNumero de Vigilantes: " + vigilantes.size() +
+                "\nNumero de Funcionarios nao docentes: " + funcionariosNaoDocentes.size() +
+                "\nNumero de Alunos " + alunosClassificacao.size() +
                 "\n----";
     }
 }

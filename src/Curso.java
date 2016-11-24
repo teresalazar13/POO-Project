@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class Curso {
+public class Curso implements Serializable{
     private String nome;
     private int duracao;
     private String grau;

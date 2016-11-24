@@ -1,4 +1,6 @@
-public class NaoDocente extends Funcionario {
+import java.io.Serializable;
+
+public class NaoDocente extends Funcionario implements Serializable{
     private String cargo;
 
     public  NaoDocente() {}

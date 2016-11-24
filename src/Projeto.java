@@ -1,6 +1,9 @@
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.io.File;
 
 public class Projeto {
 
@@ -99,7 +102,7 @@ public class Projeto {
         String regime = aluno.getRegime();
         Class classe = exame.getClass();
         if (classe.toString().equals("class ExameEspecial")) {
-            if (regime.equals("Normal") || regime.equals("Erasmus")) {
+            if (regime.equals("normal") || regime.equals("erasmus")) {
                 System.out.println("Aluno nao tem acesso a esta epoca de exame.");
                 return;
             }
@@ -239,7 +242,7 @@ public class Projeto {
         Scanner sc = new Scanner(System.in);
         System.out.println("Opcao: ");
         int opcao = sc.nextInt();
-        return (Aluno) pessoas.get(opcao - 1);
+        return pessoas.get(opcao - 1);
     }
 
     private static Curso escolherCurso(ArrayList<Curso> cursos) {
@@ -258,25 +261,101 @@ public class Projeto {
         return disciplinas.get(opcao - 1);
     }
 
-    private static void menu(ArrayList<Exame> exames, ArrayList<Aluno> alunos, ArrayList<Docente> docentes, ArrayList<NaoDocente> naoDocentes, ArrayList<Pessoa> pessoas, ArrayList<Curso> cursos, ArrayList<Disciplina> disciplinas) {
-        Docente docente = new Docente("Marilia Curado", "mariliacurado@dei.uc.pt", 1, "Catedratico", "Engenharia de Software");
-        Disciplina disciplina = new Disciplina("POO", docente, docentes, alunos);
-        Curso curso = new Curso("Engenharia Informatica", 3, "Licenciatura", disciplinas);
-        Aluno aluno = new Aluno("Teresa", "teresa.sal13@gmail.com", 20, 1, curso, "normal");
-        NaoDocente naoDocente = new NaoDocente("Jorge", "jorge@gmail.com", 10, "Tecnico", "Secretaria");
-        Data data = new Data(1, 2, 3, 4, 5);
-        Exame exame = new ExameNormal(disciplina, data, 10, docente, docentes);
+    private static void menu(ArrayList<Exame> exames, ArrayList<Aluno> alunos, ArrayList<Docente> docentes, ArrayList<NaoDocente> naoDocentes, ArrayList<Pessoa> pessoas, ArrayList<Curso> cursos, ArrayList<Disciplina> disciplinas) throws IOException, ClassNotFoundException {
+        Docente docente1= new Docente("Marilia Curado", "mariliacurado@dei.uc.pt", 1, "Catedratico", "ES");
+        Docente docente2 = new Docente("Joana Silva", "js@dei.uc.pt", 2, "Assistente", "SO");
+        Docente docente3 = new Docente("Carlos Cruz", "cc@dei.uc.pt", 3, "Auxiliar", "CT");
+        Docente docente4 = new Docente("Ze", "mZe@dei.uc.pt", 4, "Catedratico", "ES");
+        Docente docente5 = new Docente("Salazar", "sal@dei.uc.pt", 5, "Catedratico", "SI");
 
-        docentes.add(docente);
-        pessoas.add(docente);
-        disciplinas.add(disciplina);
-        cursos.add(curso);
-        alunos.add(aluno);
-        pessoas.add(aluno);
+        ArrayList<Docente> docentesPOO = new ArrayList<Docente>();
+        ArrayList<Docente> docentesSO = new ArrayList<Docente>();
+        ArrayList<Docente> docentesTI = new ArrayList<Docente>();
+
+        docentesPOO.add(docente1);
+        docentesPOO.add(docente2);
+        docentesSO.add(docente3);
+        docentesSO.add(docente5);
+        docentesSO.add(docente1);
+        docentesTI.add(docente4);
+
+        Disciplina disciplinaPOO = new Disciplina("POO", docente1, docentesPOO, alunos);
+        Disciplina disciplinaSO = new Disciplina("SO", docente2, docentesSO, alunos);
+        Disciplina disciplinaTI = new Disciplina("SO", docente2, docentesTI, alunos);
+
+        ArrayList<Disciplina> disciplinasEI = new ArrayList<Disciplina>();
+        ArrayList<Disciplina> disciplinasDM = new ArrayList<Disciplina>();
+        disciplinasEI.add(disciplinaPOO);
+        disciplinasEI.add(disciplinaSO);
+        disciplinasEI.add(disciplinaTI);
+        disciplinasDM.add(disciplinaTI);
+
+
+        Curso cursoEI = new Curso("Engenharia Informatica", 5, "Mestrado",disciplinasEI);
+        Curso cursoDM = new Curso("LDM", 3, "Licenciatura", disciplinasDM);
+
+        Aluno a1 = new Aluno("Teresa", "teresa.sal13@gmail.com", 1 1, cursoEI, "normal");
+        Aluno a2 = new Aluno("Joao", "johnny@gmail.com", 2, 2, cursoEI, "trabalhador-estudante");
+        Aluno a3 = new Aluno("Sofia", "sofs@gmail.com", 3, 3, cursoDM, "atleta");
+        Aluno a4 = new Aluno("Maria", "mary@gmail.com", 4, 4, cursoDM, "erasmus");
+        Aluno a5 = new Aluno("Jorge", "jorjao@gmail.com", 5, 5, cursoEI, "dirigente-associativo");
+        Aluno a6 = new Aluno("Joana", "juju@gmail.com", 6, 6, cursoDM, "normal");
+        Aluno a7 = new Aluno("Abilio", "bibi@gmail.com", 7, 7, cursoEI, "erasmus");
+        Aluno a8 = new Aluno("Zeca", "zeca@gmail.com", 8, 8, cursoDM, "normal");
+
+        NaoDocente naoDocente = new NaoDocente("Isaura", "isaura@gmail.com", 10, "Especialista de Informática", "Apoio técnico");
+        ArrayList<NaoDocente> naoDocentes1= new ArrayList<NaoDocente>();
+        naoDocentes1.add(naoDocente);
+
+        Data data1 = new Data(04,12,2016,14,30);
+        Data data2 = new Data(05,12,2016,14,35);
+        Data data3 = new Data(06,12,2016,14,50);
+
+        docentes.add(docente1);
+        docentes.add(docente2);
+        docentes.add(docente3);
+        docentes.add(docente4);
+        docentes.add(docente5);
+        pessoas.add(docente1);
+        pessoas.add(docente2);
+        pessoas.add(docente3);
+        pessoas.add(docente4);
+        pessoas.add(docente5);
+        cursos.add(cursoDM);
+        cursos.add(cursoEI);
+        alunos.add(a1);
+        alunos.add(a2);
+        alunos.add(a3);
+        alunos.add(a4);
+        alunos.add(a5);
+        alunos.add(a6);
+        alunos.add(a7);
+        alunos.add(a8);
+        pessoas.add(a1);
+        pessoas.add(a2);
+        pessoas.add(a3);
+        pessoas.add(a4);
+        pessoas.add(a5);
+        pessoas.add(a6);
+        pessoas.add(a7);
+        pessoas.add(a8);
         naoDocentes.add(naoDocente);
         pessoas.add(naoDocente);
-        exames.add(exame);
-        
+
+        Exame exame1 = new ExameNormal(disciplinaPOO, data1, 50, disciplinaPOO.getDocente(), disciplinaPOO.getOutrosDocentes());
+        Exame exame2 = new ExameNormal(disciplinaTI, data2, 20, disciplinaPOO.getDocente(), disciplinaPOO.getOutrosDocentes());
+        Exame exame3 = new ExameRecurso(disciplinaSO, data3, 20, disciplinaPOO.getDocente(), disciplinaPOO.getOutrosDocentes());
+        Exame exame4 = new ExameEspecial(disciplinaTI, data3, 20, disciplinaPOO.getDocente(), disciplinaPOO.getOutrosDocentes());
+        exames.add(exame1);
+        exames.add(exame2);
+        exames.add(exame3);
+        exames.add(exame4);
+
+        /*
+        escreverFicheiros();
+        lerFicheiros();*/
+
+
         /*listarExames();
         listarPessoas(pessoas, "Docente");
         listarCursos();
@@ -327,6 +406,7 @@ public class Projeto {
                 case 9:
                     Exame exameEscolhidoFuncionarios = escolherExame(exames);
                     exameEscolhidoFuncionarios.listarFuncionarios();
+                    break;
                 case 10:
                     listarExamesFuncionario(exames, pessoas);
                     break;
@@ -335,8 +415,33 @@ public class Projeto {
             }
         }
     }
+    /*
 
-    public static void main(String args[]){
+    public static void escreverFicheiros(Object classe) throws IOException, ClassNotFoundException {
+        Ficheiro ficheiroDisciplinas = new Ficheiro();
+        ficheiroDisciplinas.abreEscrita("Ficheiros/Disciplinas.dat");
+        ficheiroDisciplinas.escreveObjecto(disciplinas);
+        ficheiroDisciplinas.fechaEscrita();
+    }
+
+
+    public static void lerFicheiros(Object classe) throws IOException, ClassNotFoundException {
+        Ficheiro ficheiroExames = new Ficheiro();
+        ficheiroExames.abreLeitura("Ficheiros/Exames.dat");
+        try {
+            ArrayList <Exame> exames = (ArrayList <Exame>) ficheiroExames.leObjecto();
+            for (int i = 0; i < exames.size(); i++) {
+                System.out.println(exames.get(i));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        ficheiroExames.fechaLeitura();
+    }*/
+
+    public static void main(String args[]) throws IOException, ClassNotFoundException {
         ArrayList<Exame> exames = new ArrayList<Exame>();
         ArrayList<Aluno> alunos = new ArrayList<Aluno>();
         ArrayList<Docente> docentes = new ArrayList<Docente>();
@@ -344,6 +449,12 @@ public class Projeto {
         ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
         ArrayList<Curso> cursos = new ArrayList<Curso>();
         ArrayList<Disciplina> disciplinas = new ArrayList<Disciplina>();
-        menu(exames, alunos, docentes, naoDocentes, pessoas, cursos, disciplinas);
+        try {
+            menu(exames, alunos, docentes, naoDocentes, pessoas, cursos, disciplinas);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
