@@ -1,6 +1,6 @@
 import java.io.Serializable;
 
-public class Funcionario extends Pessoa implements Serializable{
+public class Funcionario extends Pessoa implements Serializable {
     protected int numeroMecanografico;
     protected String categoria;
 

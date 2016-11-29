@@ -1,6 +1,6 @@
 import java.io.Serializable;
 
-public class Pessoa implements Serializable{
+public class Pessoa implements Serializable {
     protected String nome;
     protected String email;
 

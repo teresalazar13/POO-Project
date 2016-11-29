@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ExameNormal extends Exame{
+public class ExameNormal extends Exame implements Serializable {
 
     public ExameNormal() {}
 

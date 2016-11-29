@@ -262,7 +262,7 @@ public class Projeto {
     }
 
     private static void menu(ArrayList<Exame> exames, ArrayList<Aluno> alunos, ArrayList<Docente> docentes, ArrayList<NaoDocente> naoDocentes, ArrayList<Pessoa> pessoas, ArrayList<Curso> cursos, ArrayList<Disciplina> disciplinas) throws IOException, ClassNotFoundException {
-        Docente docente1= new Docente("Marilia Curado", "mariliacurado@dei.uc.pt", 1, "Catedratico", "ES");
+        /*Docente docente1= new Docente("Marilia Curado", "mariliacurado@dei.uc.pt", 1, "Catedratico", "ES");
         Docente docente2 = new Docente("Joana Silva", "js@dei.uc.pt", 2, "Assistente", "SO");
         Docente docente3 = new Docente("Carlos Cruz", "cc@dei.uc.pt", 3, "Auxiliar", "CT");
         Docente docente4 = new Docente("Ze", "mZe@dei.uc.pt", 4, "Catedratico", "ES");
@@ -290,11 +290,10 @@ public class Projeto {
         disciplinasEI.add(disciplinaTI);
         disciplinasDM.add(disciplinaTI);
 
-
         Curso cursoEI = new Curso("Engenharia Informatica", 5, "Mestrado",disciplinasEI);
         Curso cursoDM = new Curso("LDM", 3, "Licenciatura", disciplinasDM);
 
-        Aluno a1 = new Aluno("Teresa", "teresa.sal13@gmail.com", 1 1, cursoEI, "normal");
+        Aluno a1 = new Aluno("Teresa", "teresa.sal13@gmail.com", 1, 1, cursoEI, "normal");
         Aluno a2 = new Aluno("Joao", "johnny@gmail.com", 2, 2, cursoEI, "trabalhador-estudante");
         Aluno a3 = new Aluno("Sofia", "sofs@gmail.com", 3, 3, cursoDM, "atleta");
         Aluno a4 = new Aluno("Maria", "mary@gmail.com", 4, 4, cursoDM, "erasmus");
@@ -351,15 +350,20 @@ public class Projeto {
         exames.add(exame3);
         exames.add(exame4);
 
-        /*
-        escreverFicheiros();
-        lerFicheiros();*/
+        escreverFicheiros(pessoas, "Pessoas");
+        escreverFicheiros(alunos, "Alunos");
+        escreverFicheiros(docentes, "Docentes");
+        escreverFicheiros(naoDocentes, "NaoDocentes");
+        escreverFicheiros(cursos, "Cursos");
+        escreverFicheiros(exames, "Exames");*/
 
+        pessoas = (ArrayList<Pessoa>) lerFicheiros("Pessoa");
+        alunos = (ArrayList<Aluno>) lerFicheiros("Aluno");
+        docentes = (ArrayList<Docente>) lerFicheiros("Docente");
+        naoDocentes = (ArrayList<NaoDocente>) lerFicheiros("NaoDocente");
+        cursos = (ArrayList<Curso>) lerFicheiros("Curso");
+        exames = (ArrayList<Exame>) lerFicheiros("Exame");
 
-        /*listarExames();
-        listarPessoas(pessoas, "Docente");
-        listarCursos();
-        listarDisciplinas();*/
 
         Scanner sc = new Scanner(System.in);
         while(true) {
@@ -415,31 +419,33 @@ public class Projeto {
             }
         }
     }
-    /*
 
-    public static void escreverFicheiros(Object classe) throws IOException, ClassNotFoundException {
-        Ficheiro ficheiroDisciplinas = new Ficheiro();
-        ficheiroDisciplinas.abreEscrita("Ficheiros/Disciplinas.dat");
-        ficheiroDisciplinas.escreveObjecto(disciplinas);
-        ficheiroDisciplinas.fechaEscrita();
+
+    public static void escreverFicheiros(Object classe, String nomeClasse) throws IOException, ClassNotFoundException {
+        String nomeFicheiro = "Ficheiros/" + nomeClasse + ".dat";
+        Ficheiro ficheiro = new Ficheiro();
+        ficheiro.abreEscrita(nomeFicheiro);
+        ficheiro.escreveObjecto(classe);
+        ficheiro.fechaEscrita();
     }
 
 
-    public static void lerFicheiros(Object classe) throws IOException, ClassNotFoundException {
-        Ficheiro ficheiroExames = new Ficheiro();
-        ficheiroExames.abreLeitura("Ficheiros/Exames.dat");
+    public static ArrayList lerFicheiros(String nomeClasse) throws IOException, ClassNotFoundException {
+        String nomeFicheiro = "Ficheiros/" + nomeClasse + "s" + ".dat";
+        Ficheiro ficheiro = new Ficheiro();
+        ficheiro.abreLeitura(nomeFicheiro);
+        Class classe = Class.forName(nomeClasse);
+        ArrayList <Object> array = null;
         try {
-            ArrayList <Exame> exames = (ArrayList <Exame>) ficheiroExames.leObjecto();
-            for (int i = 0; i < exames.size(); i++) {
-                System.out.println(exames.get(i));
-            }
+            array = (ArrayList <Object>) ficheiro.leObjecto();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        ficheiroExames.fechaLeitura();
-    }*/
+        ficheiro.fechaLeitura();
+        return array;
+    }
 
     public static void main(String args[]) throws IOException, ClassNotFoundException {
         ArrayList<Exame> exames = new ArrayList<Exame>();

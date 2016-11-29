@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Exame {
+public class Exame implements Serializable {
     protected Disciplina disciplina;
     protected Data data;
     protected int duracao;
