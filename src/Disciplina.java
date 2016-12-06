@@ -50,10 +50,19 @@ public class Disciplina implements Serializable {
 
     @Override
     public String toString() {
-        return "Disciplina: " + nome + '\n' +
-                "Docente: " + docente.getNome() + '\n' +
-                "OutrosDocentes: " + "--lista de docentes--" + '\n' +
-                "Alunos=" + "--lista de alunos--" + '\n' +
-                "----";
+        String text = "Disciplina: " + nome + '\n' +
+                "Docente da Cadeira: " + docente.getNome() + '\n';
+        text += "Docentes: ";
+        for (int i = 0; i < outrosDocentes.size(); i++) {
+            text += outrosDocentes.get(i).getNome() + ",";
+        }
+        text = text.substring(0, text.length()-1);
+        text += "\nAlunos: ";
+        for (int i = 0; i < alunos.size(); i++) {
+            text += alunos.get(i).getNome() + ",";
+        }
+        text = text.substring(0, text.length()-1);
+        return text + "\n----\n";
     }
+
 }
