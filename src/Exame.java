@@ -104,13 +104,28 @@ public class Exame implements Serializable {
         Scanner sc = new Scanner(System.in);
         for (int i = 0; i < alunosClassificacao.size(); i++) {
             System.out.print(alunosClassificacao.get(i).getAluno().getNome() + ": ");
-            int nota = sc.nextInt();
+            int nota;
+            while(true) {
+                while (!sc.hasNextInt()) { // Caso o input nao seja um numero
+                    System.out.println("Por favor escreva um numero inteiro");
+                    sc.next();
+                }
+                nota = sc.nextInt();
+                if (20 < nota || nota < 0) { // Caso a nota nao seja um valor entre 0 e 20, inclusive
+                    System.out.println("Por favor escreve um numero entre 0 e " + 20);
+                }
+                else {
+                    break;
+                }
+            }
             alunosClassificacao.get(i).setClassificacao(nota);
         }
     }
 
+
+
     public void listarNotas() {
-        for(int i = 0; i < alunosClassificacao.size(); i++ ){
+        for (int i = 0; i < alunosClassificacao.size(); i++ ){
             System.out.println(alunosClassificacao.get(i).getAluno().getNome() + ": " + alunosClassificacao.get(i).getClassificacao());
         }
     }

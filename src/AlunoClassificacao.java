@@ -1,4 +1,6 @@
-public class AlunoClassificacao {
+import java.io.Serializable;
+
+public class AlunoClassificacao implements Serializable {
     private Aluno aluno;
     private int classificacao;
 
