@@ -1,3 +1,5 @@
+import com.sun.tools.doclets.internal.toolkit.util.SourceToHTMLConverter;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -83,17 +85,35 @@ public class Exame implements Serializable {
         this.funcionariosNaoDocentes = funcionariosNaoDocentes;
     }
 
-    public ArrayList<AlunoClassificacao> getAlunoClassificacao() {
+    public ArrayList<AlunoClassificacao> getAlunosClassificacao() {
         return alunosClassificacao;
     }
 
-    public void setAlunoClassificacao(ArrayList<AlunoClassificacao> alunoClassificacao) {
-        this.alunosClassificacao = alunoClassificacao;
+    public void setAlunosClassificacao(ArrayList<AlunoClassificacao> alunosClassificacao) {
+        this.alunosClassificacao = alunosClassificacao;
     }
 
     public boolean contemDocente(Docente docente) {
         for (int i = 0; i < vigilantes.size(); i++) {
-            if (vigilantes.get(i).equals(docente)) {
+            if (vigilantes.get(i).getNumeroMecanografico() == docente.getNumeroMecanografico()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean contemNaoDocente(NaoDocente naoDocente) {
+        for (int i = 0; i < funcionariosNaoDocentes.size(); i++) {
+            if (funcionariosNaoDocentes.get(i).getNumeroMecanografico() == naoDocente.getNumeroMecanografico()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean contemAluno(Aluno aluno) {
+        for (int i = 0; i < alunosClassificacao.size(); i++) {
+            if (alunosClassificacao.get(i).getAluno().getNumero() == aluno.getNumero()) {
                 return true;
             }
         }
@@ -102,6 +122,9 @@ public class Exame implements Serializable {
 
     public void lancarNotas() {
         Scanner sc = new Scanner(System.in);
+        if (alunosClassificacao.size() == 0) {
+            System.out.println("Nao existe nenhum aluno inscrito no exame");
+        }
         for (int i = 0; i < alunosClassificacao.size(); i++) {
             System.out.print(alunosClassificacao.get(i).getAluno().getNome() + ": ");
             int nota;
@@ -111,8 +134,8 @@ public class Exame implements Serializable {
                     sc.next();
                 }
                 nota = sc.nextInt();
-                if (20 < nota || nota < 0) { // Caso a nota nao seja um valor entre 0 e 20, inclusive
-                    System.out.println("Por favor escreve um numero entre 0 e " + 20);
+                if (20 < nota || nota <= 0) { // Caso a nota nao seja um valor entre 0 e 20, inclusive
+                    System.out.println("Por favor escreve um numero entre 1 e " + 20);
                 }
                 else {
                     break;
@@ -122,9 +145,10 @@ public class Exame implements Serializable {
         }
     }
 
-
-
     public void listarNotas() {
+        if (alunosClassificacao.size() == 0) {
+            System.out.println("Nao existe nenhum aluno inscrito no exame");
+        }
         for (int i = 0; i < alunosClassificacao.size(); i++ ){
             System.out.println(alunosClassificacao.get(i).getAluno().getNome() + ": " + alunosClassificacao.get(i).getClassificacao());
         }
@@ -133,8 +157,14 @@ public class Exame implements Serializable {
     public void listarFuncionarios() {
         System.out.println("Docente Responsavel: " + docenteResponsavel);
         System.out.println("Vigilantes");
+        if (vigilantes.size() == 0) {
+            System.out.println("Nao ha vigilantes inscritos para este exame");
+        }
         for (int i = 0; i < vigilantes.size(); i++) {
             System.out.println(vigilantes.get(i));
+        }
+        if (funcionariosNaoDocentes.size() == 0) {
+            System.out.println("Nao ha Funcionario Nao Docentes inscritos para este exame");
         }
         System.out.println("Funcionarios Nao Docentes");
         for (int i = 0; i < funcionariosNaoDocentes.size(); i++) {
@@ -142,40 +172,23 @@ public class Exame implements Serializable {
         }
     }
 
-    public boolean verificaAlunoInscrito(int numero) {
-        for (int i = 0; i < alunosClassificacao.size(); i++) {
-            if (alunosClassificacao.get(i).getAluno().getNumero() == numero)
-                return true;
-        }
-        return false;
-    }
-
-    public boolean verificaVigilante(int numero) {
-        for (int i = 0; i < vigilantes.size(); i++) {
-            if (vigilantes.get(i).getNumeroMecanografico() == numero)
-                return true;
-        }
-        return false;
-    }
-
-    public boolean verificaFuncionarioNaoDocente(int numero) {
-        for (int i = 0; i < funcionariosNaoDocentes.size(); i++) {
-            if (funcionariosNaoDocentes.get(i).getNumeroMecanografico() == numero)
-                return true;
-        }
-        return false;
-    }
-
     @Override
     public String toString() {
+        String salaString;
+        if (sala == 0) {
+            salaString = "nao marcada";
+        }
+        else {
+            salaString = Integer.toString(sala);
+        }
         return "Disciplina: " + disciplina.getNome() +
                 "\nData: " + data +
-                "\nDuracao: " + duracao +
-                "\nSala: " + sala +
+                "\nDuracao: " + duracao + " minutos" +
+                "\nSala: " + salaString +
                 "\nDocente responsavel: " + docenteResponsavel.getNome() +
                 "\nNumero de Vigilantes: " + vigilantes.size() +
                 "\nNumero de Funcionarios nao docentes: " + funcionariosNaoDocentes.size() +
-                "\nNumero de Alunos " + alunosClassificacao.size() +
+                "\nNumero de Alunos: " + alunosClassificacao.size() +
                 "\n----";
     }
 }
