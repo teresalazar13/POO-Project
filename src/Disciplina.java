@@ -48,6 +48,15 @@ public class Disciplina implements Serializable {
         this.alunos = alunos;
     }
 
+    public boolean contemAluno(Aluno aluno) {
+        for (int i = 0; i < alunos.size(); i++) {
+            if (alunos.get(i).getNumero() == aluno.getNumero()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         String text = "Disciplina: " + nome + '\n' +

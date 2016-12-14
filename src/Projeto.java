@@ -70,44 +70,6 @@ public class Projeto {
         atualizarFicheiroExames(exames);
     }
 
-    // Inscreve aluno em exame, assegurando que estao inscritos em disciplina e que tem acesso a epoca do exame
-    public static void inscreverAluno(ArrayList<Pessoa> pessoas, ArrayList<Exame> exames) throws IOException {
-        System.out.println("Selecione aluno que pretende inscrever");
-        Aluno aluno = (Aluno) escolherPessoa(pessoas, "Aluno");
-        System.out.println("Selecione exame em que pretende inscrever aluno");
-        Exame exame = escolherExame(exames);
-        Disciplina disciplina = exame.getDisciplina();
-        ArrayList<Aluno> alunosDisciplina = disciplina.getAlunos();
-        int checkInscricaoDisciplina = 0;
-        for (int i = 0; i < alunosDisciplina.size(); i++) { // Verifica se ha algum aluno da disciplina com numero igual ao numero do aluno que utilizador escolheu
-            if (alunosDisciplina.get(i).getNumero() == aluno.getNumero()) {
-                checkInscricaoDisciplina = 1;
-            }
-        }
-        if (checkInscricaoDisciplina == 0) { // Se aluno nao estiver inscrito, a operacao e anulada
-            System.out.println("Aluno nao inscrito em disciplina.");
-            return;
-        }
-        String regime = aluno.getRegime();
-        Class classe = exame.getClass();
-        if (classe.toString().equals("class ExameEspecial")) { // Verifica se o aluno tem acesso a epoca deste exame
-            if (regime.equals("normal") || regime.equals("erasmus")) {
-                System.out.println("Aluno nao tem acesso a esta epoca de exame.");
-                return; // Se nao tiver acesso, a operacao e anulada
-            }
-        }
-        if (exame.contemAluno(aluno)) { // Verifica se aluno ja tinha sido inscrito em exame
-            System.out.println("Aluno ja tinha sido inscrito em exame");
-            return;
-        }
-        ArrayList<AlunoClassificacao> alunosClassificacao = exame.getAlunosClassificacao();
-        AlunoClassificacao alunoClassificacao = new AlunoClassificacao(aluno);
-        alunoClassificacao.setAluno(aluno);
-        alunosClassificacao.add(alunoClassificacao);
-        System.out.println("Aluno inscrito em exame com sucesso");
-        atualizarFicheiroExames(exames);
-    }
-
     // Convoca Funcionarios para um exame
     public static void convocarFuncionarios(ArrayList<Exame> exames, ArrayList<Pessoa> pessoas) throws IOException {
         Exame exame = escolherExame(exames);
@@ -145,6 +107,38 @@ public class Projeto {
                 funcionariosNaoDocentes.add(funcionarioNaoDocente);
             }
         }
+        atualizarFicheiroExames(exames);
+    }
+
+    // Inscreve aluno em exame, assegurando que estao inscritos em disciplina e que tem acesso a epoca do exame
+    public static void inscreverAluno(ArrayList<Pessoa> pessoas, ArrayList<Exame> exames) throws IOException {
+        System.out.println("Selecione aluno que pretende inscrever");
+        Aluno aluno = (Aluno) escolherPessoa(pessoas, "Aluno");
+        System.out.println("Selecione exame em que pretende inscrever aluno");
+        Exame exame = escolherExame(exames);
+        Disciplina disciplina = exame.getDisciplina();
+        ArrayList<Aluno> alunosDisciplina = disciplina.getAlunos();
+        if (!disciplina.contemAluno(aluno)) { // Se aluno nao estiver inscrito, a operacao e anulada
+            System.out.println("Aluno nao inscrito em disciplina.");
+            return;
+        }
+        String regime = aluno.getRegime();
+        Class classe = exame.getClass();
+        if (classe.toString().equals("class ExameEspecial")) { // Verifica se o aluno tem acesso a epoca deste exame
+            if (regime.equals("normal") || regime.equals("erasmus")) {
+                System.out.println("Aluno nao tem acesso a esta epoca de exame.");
+                return; // Se nao tiver acesso, a operacao e anulada
+            }
+        }
+        if (exame.contemAluno(aluno)) { // Verifica se aluno ja tinha sido inscrito em exame
+            System.out.println("Aluno ja tinha sido inscrito em exame");
+            return;
+        }
+        ArrayList<AlunoClassificacao> alunosClassificacao = exame.getAlunosClassificacao();
+        AlunoClassificacao alunoClassificacao = new AlunoClassificacao(aluno);
+        alunoClassificacao.setAluno(aluno);
+        alunosClassificacao.add(alunoClassificacao);
+        System.out.println("Aluno inscrito em exame com sucesso");
         atualizarFicheiroExames(exames);
     }
 
