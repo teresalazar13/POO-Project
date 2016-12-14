@@ -2,6 +2,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Disciplina implements Serializable {
+    private static final long serialVersionUID = -2212510796197535085L;
     private String nome;
     private Docente docente;
     private ArrayList<Docente> outrosDocentes;
