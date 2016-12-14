@@ -49,6 +49,7 @@ public class Disciplina implements Serializable {
         this.alunos = alunos;
     }
 
+    /** Verifica se disciplina contem aluno */
     public boolean contemAluno(Aluno aluno) {
         for (int i = 0; i < alunos.size(); i++) {
             if (alunos.get(i).getNumero() == aluno.getNumero()) {

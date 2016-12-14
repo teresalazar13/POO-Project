@@ -93,6 +93,7 @@ public class Exame implements Serializable {
         this.alunosClassificacao = alunosClassificacao;
     }
 
+    /** Verifica se exame contem docente */
     public boolean contemDocente(Docente docente) {
         for (int i = 0; i < vigilantes.size(); i++) {
             if (vigilantes.get(i).getNumeroMecanografico() == docente.getNumeroMecanografico()) {
@@ -102,6 +103,7 @@ public class Exame implements Serializable {
         return false;
     }
 
+    /** Verifica se exame contem nao docente */
     public boolean contemNaoDocente(NaoDocente naoDocente) {
         for (int i = 0; i < funcionariosNaoDocentes.size(); i++) {
             if (funcionariosNaoDocentes.get(i).getNumeroMecanografico() == naoDocente.getNumeroMecanografico()) {
@@ -111,6 +113,7 @@ public class Exame implements Serializable {
         return false;
     }
 
+    /** Verifica se exame contem aluno */
     public boolean contemAluno(Aluno aluno) {
         for (int i = 0; i < alunosClassificacao.size(); i++) {
             if (alunosClassificacao.get(i).getAluno().getNumero() == aluno.getNumero()) {
@@ -120,6 +123,7 @@ public class Exame implements Serializable {
         return false;
     }
 
+    /** Lanca notas */
     public void lancarNotas() {
         Scanner sc = new Scanner(System.in);
         if (alunosClassificacao.size() == 0) {
@@ -132,6 +136,7 @@ public class Exame implements Serializable {
         }
     }
 
+    /** Lista notas */
     public void listarNotas() {
         if (alunosClassificacao.size() == 0) {
             System.out.println("Nao existe nenhum aluno inscrito no exame");
@@ -141,6 +146,7 @@ public class Exame implements Serializable {
         }
     }
 
+    /** Lista Funcionarios */
     public void listarFuncionarios() {
         System.out.println("Docente Responsavel: " + docenteResponsavel);
         System.out.println("Vigilantes");

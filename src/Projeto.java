@@ -11,10 +11,10 @@ import java.io.FileWriter;
 
 public class Projeto {
 
-    // Adiciona Exame ao Arraylist de exames
+    /** Adiciona Exame ao Arraylist de exames */
     public static void adicionarExame(ArrayList<Exame> exames, ArrayList<Disciplina> disciplinas) throws IOException {
         System.out.println("Escolha a disciplina do exame");
-        Disciplina disciplina = escolherDisciplina(disciplinas); // Escolhe a disciplina do exame
+        Disciplina disciplina = escolherDisciplina(disciplinas); /** Escolhe a disciplina do exame */
         Data data = data();
         System.out.print("Duracao: ");
         int duracao = devolveInteiroValido(200); // Adiciona duraçao do exame
@@ -45,7 +45,7 @@ public class Projeto {
         atualizarFicheiroExames(exames);
     }
 
-    // Configura a sala para o exame
+    /** Configura a sala para o exame */
     public static void configurarSala(ArrayList<Exame> exames) throws IOException {
         System.out.println("Escolha o exame para o qual pretende marcar sala");
         Exame exame = escolherExame(exames);
@@ -70,7 +70,7 @@ public class Projeto {
         atualizarFicheiroExames(exames);
     }
 
-    // Convoca Funcionarios para um exame
+    /** Convoca Funcionarios para um exame */
     public static void convocarFuncionarios(ArrayList<Exame> exames, ArrayList<Pessoa> pessoas) throws IOException {
         Exame exame = escolherExame(exames);
         ArrayList<Docente> vigilantes = exame.getVigilantes();
@@ -110,7 +110,7 @@ public class Projeto {
         atualizarFicheiroExames(exames);
     }
 
-    // Inscreve aluno em exame, assegurando que estao inscritos em disciplina e que tem acesso a epoca do exame
+    /** Inscreve aluno em exame, assegurando que estao inscritos em disciplina e que tem acesso a epoca do exame */
     public static void inscreverAluno(ArrayList<Pessoa> pessoas, ArrayList<Exame> exames) throws IOException {
         System.out.println("Selecione aluno que pretende inscrever");
         Aluno aluno = (Aluno) escolherPessoa(pessoas, "Aluno");
@@ -142,7 +142,7 @@ public class Projeto {
         atualizarFicheiroExames(exames);
     }
 
-    // Lista exames em que um aluno esta inscrito
+    /** Lista exames em que um aluno esta inscrito */
     public static void listarExamesAluno(ArrayList<Exame> exames, ArrayList<Pessoa> pessoas) {
         System.out.println("Por favor escolha o aluno ");
         Aluno aluno = (Aluno) escolherPessoa(pessoas, "Aluno");
@@ -169,7 +169,7 @@ public class Projeto {
         }
     }
 
-    // Lista exames em que um docente vigilante ou um nao docente de apoio esta inscrito
+    /** Lista exames em que um docente vigilante ou um nao docente de apoio esta inscrito */
     public static void listarExamesFuncionario(ArrayList<Exame> exames, ArrayList<Pessoa> pessoas) {
         System.out.println("Listar:\n1- Docentes Vigilantes\n2- Funcionarios de apoio");
         int opcao = devolveInteiroValido(2);
@@ -200,7 +200,7 @@ public class Projeto {
         }
     }
 
-    // Percorre a lista de exame. Se exame tiver docente, verificar se a data e a duração desse exame coincidem com as dadas
+    /** Percorre a lista de exame. Se exame tiver docente, verificar se a data e a duração desse exame coincidem com as dadas */
     public static int verificarDisponibilidadeDocente(ArrayList<Exame> exames, Data data, int duracao, Docente docente) {
         for (int i = 0; i < exames.size(); i++) {
             if (exames.get(i).contemDocente(docente)) {
@@ -214,7 +214,7 @@ public class Projeto {
         return 1; // caso o docente tenha disponibilidade para vigiar o exame
     }
 
-    // Compara duas datas e durações de exames para ver se coincidem
+    /** Compara duas datas e durações de exames para ver se coincidem */
     public static int compararData(Data data, int duracao, Data dataExame, int duracaoExame) {
         int dataInicio = data.getAno() * 10000000 + data.getMes() * 100000 + data.getDia() * 1000 + data.getHora() * 10 + data.getMinuto();
         int dataFim = dataInicio + duracao;
@@ -228,7 +228,7 @@ public class Projeto {
         }
     }
 
-    // Input para datas
+    /** Input para datas */
     public static Data data() {
         System.out.println("Dia");
         int dia = devolveInteiroValido(31);
@@ -243,7 +243,7 @@ public class Projeto {
         return new Data(dia, mes, ano, hora, minuto);
     }
 
-    // Lista todos os exames
+    /** Lista todos os exames */
     public static void listarExames(ArrayList<Exame> exames) {
         System.out.println("----LISTA DE EXAMES----");
         Iterator<Exame> it = exames.iterator();
@@ -254,7 +254,7 @@ public class Projeto {
         }
     }
 
-    // Lista todos os alunos, docentes ou nao docentes
+    /** Lista todos os alunos, docentes ou nao docentes */
     public static Hashtable listarPessoas(ArrayList<Pessoa> pessoas, String classe) {
         Hashtable<Integer, Integer> mapIndexes = new Hashtable<Integer, Integer>(); // HashTable for mapping indexes
         System.out.println("----LISTA DE "+ classe.toUpperCase() + "S----");
@@ -270,7 +270,7 @@ public class Projeto {
         return mapIndexes;
     }
 
-    // Lista todas as disciplinas
+    /** Lista todas as disciplinas */
     public static void listarDisciplinas(ArrayList<Disciplina> disciplinas) {
         System.out.println("----LISTA DE DISCIPLINAS----");
         Iterator<Disciplina> it = disciplinas.iterator();
@@ -281,21 +281,21 @@ public class Projeto {
         }
     }
 
-    // Permite escolher exame através do input de um numero
+    /** Permite escolher exame através do input de um numero */
     public static Exame escolherExame(ArrayList<Exame> exames) {
         listarExames(exames);
         int opcao = devolveInteiroValido(exames.size());
         return exames.get(opcao - 1);
     }
 
-    // Permite escolher pessoa (aluno, docente ou nao docente) através do input de um numero
+    /** Permite escolher pessoa (aluno, docente ou nao docente) através do input de um numero */
     public static Pessoa escolherPessoa(ArrayList<Pessoa> pessoas, String classe) {
         Hashtable<Integer, Integer> mapIndexes = listarPessoas(pessoas, classe);
         int opcao = devolveInteiroValido(mapIndexes.size());
         return pessoas.get(mapIndexes.get(opcao));
     }
 
-    // Permite escolher disciplina através do input de um numero
+    /** Permite escolher disciplina através do input de um numero */
     public static Disciplina escolherDisciplina(ArrayList<Disciplina> disciplinas) {
         listarDisciplinas(disciplinas);
         int opcao = devolveInteiroValido(disciplinas.size());
@@ -468,6 +468,7 @@ public class Projeto {
         }
     }
 
+    /** Faz o registo ou o login */
     public static void registarLogin(ArrayList<String[]> users) throws IOException {
         Scanner sc = new Scanner(System.in);
         System.out.println("Escolha a opcao:\n1 - Registar\n2 - Login");
@@ -497,7 +498,7 @@ public class Projeto {
         }
     }
 
-    // Protecao para todos os input. Devolve sempre um inteiro valido entre 1 e numero maximo
+    /** Protecao para todos os input. Devolve sempre um inteiro valido entre 1 e numero maximo */
     public static int devolveInteiroValido(int numeroMaximo) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Opcao: ");
@@ -516,7 +517,7 @@ public class Projeto {
         }
     }
 
-    // Permite escrever em ficheiros
+    /** Permite escrever em ficheiros */
     private static void escreverFicheiros(Object classe, String nomeClasse) throws IOException, ClassNotFoundException {
         String nomeFicheiro = "Ficheiros/" + nomeClasse + ".dat";
         Ficheiro ficheiro = new Ficheiro();
@@ -525,7 +526,7 @@ public class Projeto {
         ficheiro.fechaEscrita();
     }
 
-    // Permite ler ficheiros
+    /** Permite ler ficheiros */
     public static ArrayList lerFicheiros(String nomeClasse) throws IOException, ClassNotFoundException {
         String nomeFicheiro = "Ficheiros/" + nomeClasse + "s" + ".dat";
         Ficheiro ficheiro = new Ficheiro();
@@ -542,7 +543,7 @@ public class Projeto {
         return array;
     }
 
-    // Permite atualizar Ficheiro de Exames
+    /** Permite atualizar Ficheiro de Exames */
     public static void atualizarFicheiroExames(ArrayList<Exame> exames) throws IOException {
         Ficheiro ficheiro = new Ficheiro();
         ficheiro.abreEscrita("Ficheiros/Exames.dat");
