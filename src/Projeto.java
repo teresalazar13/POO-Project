@@ -144,6 +144,7 @@ public class Projeto {
 
     // Lista exames em que um aluno esta inscrito
     public static void listarExamesAluno(ArrayList<Exame> exames, ArrayList<Pessoa> pessoas) {
+        System.out.println("Por favor escolha o aluno ");
         Aluno aluno = (Aluno) escolherPessoa(pessoas, "Aluno");
         System.out.println("Lista de exames do aluno: " + aluno.getNome());
         int checkAlunoTemExames = 0;
@@ -469,7 +470,7 @@ public class Projeto {
 
     public static void registarLogin(ArrayList<String[]> users) throws IOException {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Escolha a opcao:\n1-Registar\n2-Login");
+        System.out.println("Escolha a opcao:\n1 - Registar\n2 - Login");
         int opcao = devolveInteiroValido(2);
         if (opcao == 1) {
             System.out.println("Username");

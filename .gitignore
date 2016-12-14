@@ -1,2 +1,6 @@
 .idea/
+/out/
 Projeto.iml
+*.iml
+*.iws
+.DS_Store
